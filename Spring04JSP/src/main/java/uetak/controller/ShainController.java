@@ -9,22 +9,22 @@ public class ShainController {
 	// URL /test にアクセスがあったら test.jspに転送するよということ
 	@GetMapping("/test")
 	public String test() {
-		return "/WEB-INF/test.jsp";
+		return "test";
 	}
 
 	@GetMapping("/insert")
 	public String insert() {
-		return "/WEB-INF/insert.jsp";
+		return "insert";
 	}
 
 	@GetMapping("/index")
 	public String index() {
-		return "/WEB-INF/index.jsp";
+		return "index";
 	}
 
 	@GetMapping("/update")
 	public String update() {
-		return "/WEB-INF/update.jsp";
+		return "update";
 	}
 
 }
