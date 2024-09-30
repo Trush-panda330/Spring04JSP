@@ -1,5 +1,8 @@
 package uetak.controller;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import uetak.Service.ShainService;
 import uetak.entity.Shain;
 
 @Controller
 public class ShainController {
+	
+	@Autowired //社員サービスを使うよ
+	private ShainService shainService;
 
 	// URL /test にアクセスがあったら test.jspに転送するよということ
 	@GetMapping("/test")
@@ -36,10 +43,12 @@ public class ShainController {
 	}
 
 	@GetMapping("/index")
-	public String index() {
+	public String index(Model model) {
+		
+		ArrayList<Shain> shainList = shainService.findAll();
+		model.addAttribute("shainList" , shainList);    //keyが"shainList"　valueがshainList
 		return "index";
 	}
-
 	@GetMapping("/update") // "/update"というURLへのGETリクエストを処理するメソッド
 	public String update(@RequestParam("id") int id, Model model) {
 		// @RequestParamでURLクエリパラメータの"id"を取得し、int型のidにマッピング
