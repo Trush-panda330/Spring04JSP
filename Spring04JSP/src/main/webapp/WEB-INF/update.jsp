@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- ページの基本設定 -->
+<%@page import="uetak.Entity.Shain"%>
+<!-- Shainクラスをインポート -->
+
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
 <title>社員更新画面</title>
+<!-- ページタイトルを「社員更新画面」に設定 -->
 <style>
+/* フォームのスタイル設定 */
 .form-input {
 	width: 100%;
 }
@@ -26,47 +32,48 @@
 </head>
 
 <body>
+	<!-- shainから社員情報を取得する -->
+	<%
+	Shain shain = (Shain) request.getAttribute("shain");
+	%>
+	<!-- リクエストスコープからShainオブジェクトを取得 -->
+
 	<h1>社員更新画面</h1>
+	<!-- ページの見出しとして「社員更新画面」を表示 -->
+
 	<form action="update" method="post">
+	<!-- POSTメソッドで`update`エンドポイントにデータを送信するフォーム -->
 		<table class="form-table">
 			<tr>
 				<td><label for="id">ID:</label></td>
-				<td><input type="text" id="id" name="id" class="form-input"
-					pattern="\d{3}" required title="IDは3桁の数字で入力してください"></td>
+				<td><%=shain.getId()%></td>
+				<!-- 社員IDを表示 -->
 			</tr>
 			<tr>
 				<td><label for="name">名前:</label></td>
-				<td><input type="text" id="name" name="name" class="form-input"
-					required></td>
+				<td><%=shain.getName()%></td>
+				<!-- 社員の名前を表示 -->
 			</tr>
 			<tr>
 				<td><label for="sei">姓:</label></td>
-				<td><select id="sei" name="sei" class="form-input" required>
-						<option value="">選択してください</option>
-						<option value="男">男</option>
-						<option value="女">女</option>
-				</select></td>
+				<td><%=shain.getGender()%></td>
+				<!-- 社員の性別を表示 -->
 			</tr>
 			<tr>
 				<td><label for="nen">年:</label></td>
-				<td><select id="nen" name="nen" class="form-input" required>
-						<option value="">選択してください</option>
-						<%
-						for (int year = 2000; year <= 2024; year++) {
-						%>
-						<option value="<%=year%>"><%=year%></option>
-						<%
-						}
-						%>
-				</select></td>
+				<td><%=shain.getNen()%></td>
+				<!-- 社員の入社年を表示 -->
 			</tr>
 			<tr>
 				<td><label for="address">住所:</label></td>
-				<td><input type="text" id="address" name="address"
-					class="form-input" required></td>
+				<td><%=shain.getAddress() %></td>
+				<!-- 社員の住所を表示 -->
 			</tr>
 		</table>
+		<!-- 社員情報を表形式で表示 -->
+
 		<button type="submit" class="form-button">更新</button>
+		<!-- 更新ボタンを表示 -->
 	</form>
 </body>
 
